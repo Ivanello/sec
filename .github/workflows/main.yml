@@ -1,30 +1,27 @@
 name: SEC
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  push
+  pull_request
 
 jobs:
-  scan_secrets:
+  scan_secret:
     runs-on: ubuntu-latest
     steps:
-    - name: Trufflehog Check
-      uses: UnicornGlobal/trufflehog-actions-scan@v1.0.0
+    - uses: actions/checkout@v2
+    - uses: UnicornGlobal/trufflehog-actions-scan@master
       with:
-        branch: develop
+        branch: ${{ github.head_ref }}
   build:
+    needs: scan_secret
     runs-on: ubuntu-latest
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Runs a single command using the runners shell
-    - name: Run a one-line script
-      run: echo Hello, world!
+    - name: Get all variables
+      run: env
 
-    # Runs a set of commands using the runners shell
     - name: Run a multi-line script
       run: |
-        echo Add other actions to build,
+        ls -la
         echo test, and deploy your project.
