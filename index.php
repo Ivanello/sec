@@ -11,7 +11,6 @@
         $result = shell_exec($cmd);
         echo $result;
         echo "<script>console.log('Debug Objects: " . $result . "' );</script>";
-        // -----BEGIN RSA PRIVATE KEY-----
     ?>
     
  </body>
