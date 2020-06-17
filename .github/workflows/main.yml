@@ -9,7 +9,7 @@ jobs:
     - name: trufflehog scan secret
       run:  |
         ls -la
-        docker run -v $(pwd):/data dxa4481/trufflehog --regex --entropy=True file:///data
+        docker run -ti -v $(pwd):/data dxa4481/trufflehog --regex --entropy=True file:///data
   build:
     needs: scan_secret
     runs-on: ubuntu-latest
