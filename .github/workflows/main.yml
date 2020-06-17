@@ -1,0 +1,26 @@
+name: SEC
+on: [push, pull_request]
+
+jobs:
+  scan_secret:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: trufflehog scan secret
+      run:  |
+        ls -la
+        docker run -ti -v $(pwd):/data dxa4481/trufflehog --regex --entropy=True file:///data
+  build:
+    needs: scan_secret
+    runs-on: ubuntu-latest
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    - name: Get all variables
+      run: env
+
+    - name: Run a multi-line script
+      run: |
+        ls -la
+        echo test, and deploy your project.
