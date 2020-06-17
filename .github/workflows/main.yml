@@ -7,7 +7,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: trufflehog scan secret
-      run: d run -v $(pwd):/data dxa4481/trufflehog --regex --entropy=True file:///data
+      run: docker run -v $(pwd):/data dxa4481/trufflehog --regex --entropy=True file:///data
   build:
     needs: scan_secret
     runs-on: ubuntu-latest
